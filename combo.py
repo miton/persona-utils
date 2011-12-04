@@ -516,4 +516,13 @@ for combo in arcana3Combos:
     pass
   fusion3_arcana[a][b] = res
 
+#don't really like pprint's format so whatever do it myself
+with open('fusions.txt', 'w') as f:
+  f.write("fusion2_arcana = {\n")
+  for k,v in fusion2_arcana.iteritems():
+    f.write("  '%s' : %s\n" % (k, repr(v)))
+  f.write("}\n\nfusion3_arcana = {\n")
+  for k,v in fusion3_arcana.iteritems():
+    f.write("  '%s' : %s\n" % (k, repr(v)))
+  f.write("}\n")
 
