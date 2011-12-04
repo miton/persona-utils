@@ -1,16 +1,21 @@
 from collections import defaultdict
+from math import floor
 
 #restrictions: request or max link
 #inherit types
 #skill types
+#fusion arcana results
 
 class Persona(object):
-  def __init__(self, name_, base_level_, arcana_, inherit_type_, skills_, restricted_ = False):
+  def __init__(self, id_, name_, base_level_, arcana_, inherit_type_, skills_, restricted_ = False, special_ = False):
+    self.id = id_
     self.name = name_
     self.base_level = base_level_
     self.arcana = arcana_
     self.inherit_type = inherit_type_
     self.skills = skills_
+    self.special = special_
+    self.restricted = restricted_
     self.inherited_skills = []
 
 personas = [
@@ -187,6 +192,7 @@ Persona('Orpheus Telos',90,'Fool','all',[]),
 
 persona_by_name = {}
 persona_by_arcana = defaultdict(list)
+persona_by_id = sorted(personas, key=lambda i: i.id)
 
 for persona in personas:
   persona_by_name[persona.name] = persona
@@ -196,3 +202,29 @@ for arcana in persona_by_arcana.keys():
   persona_by_arcana[arcana].sort(key=lambda i: i.base_level)
   #print map(lambda i: i.name, persona_by_arcana[arcana])
 
+def can_inherit(persona_type, skill_type):
+  #missing the types I don't care about right now
+  possibilities = {
+    'all'      : {'fire':  True, 'ice' :  True, 'elec' :  True, 'wind' :  True}
+    'status'   : {'fire':  True, 'ice' :  True, 'elec' :  True, 'wind' :  True}
+    'l&d'      : {'fire':  True, 'ice' :  True, 'elec' :  True, 'wind' :  True}
+    'recovery' : {'fire':  True, 'ice' :  True, 'elec' :  True, 'wind' :  True}
+    'slash'    : {'fire': False, 'ice' : False, 'elec' : False, 'wind' : False}
+    'strike'   : {'fire': False, 'ice' : False, 'elec' : False, 'wind' : False}
+    'pierce'   : {'fire': False, 'ice' : False, 'elec' : False, 'wind' : False}   
+    'fire'     : {'fire': False, 'ice' : False, 'elec' : False, 'wind' : False}
+    'ice'      : {'fire': False, 'ice' : False, 'elec' : False, 'wind' : False}
+    'elec'     : {'fire': False, 'ice' : False, 'elec' : False, 'wind' : False}
+    'wind'     : {'fire': False, 'ice' : False, 'elec' : False, 'wind' : False}
+    'light'    : {'fire':  True, 'ice' :  True, 'elec' :  True, 'wind' :  True}
+    'dark'     : {'fire':  True, 'ice' :  True, 'elec' :  True, 'wind' :  True}
+  }
+  return possibilities[persona_type][skill_type]
+
+
+
+def fusion_2(a, b):
+  level = 1 + floor((a.level + b.level) / 2)
+  
+  
+     
