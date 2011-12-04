@@ -520,9 +520,9 @@ for combo in arcana3Combos:
 with open('fusions.txt', 'w') as f:
   f.write("fusion2_arcana = {\n")
   for k,v in fusion2_arcana.iteritems():
-    f.write("  '%s' : %s\n" % (k, repr(v)))
+    f.write("  '%s' : %s,\n" % (k, repr(v)))
   f.write("}\n\nfusion3_arcana = {\n")
   for k,v in fusion3_arcana.iteritems():
-    f.write("  '%s' : %s\n" % (k, repr(v)))
+    f.write("  '%s' : %s,\n" % (k, repr(v)))
   f.write("}\n")
 
