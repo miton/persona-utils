@@ -22,18 +22,26 @@ for base, skill_type in [('Surt', 'fire'), ('Skadi', 'ice'), ('Odin', 'elec'), (
         result = fusion2(persona_a, persona_b)
         if result and can_inherit(result, skill_type):
           possible.add(result)
+          if result.id == 169:
+            print persona_a, persona_b
         for persona_c in personas:
           if persona_c == persona_a or persona_c == persona_b:
             continue
-          result = fusion3(persona_a, persona_c, persona_a, this_order=True)
+          result = fusion3(persona_b, persona_c, persona_a, this_order=True)
           if result and can_inherit(result, skill_type):
             possible.add(result)
+            if result.id == 169:
+              print persona_b, persona_c, persona_a
           result = fusion3(persona_a, persona_c, persona_b, this_order=True)
           if result and can_inherit(result, skill_type):
             possible.add(result)
+            if result.id == 169:
+              print persona_a, persona_c, persona_b
           result = fusion3(persona_a, persona_b, persona_c, this_order=True)
           if result and can_inherit(result, skill_type):
             possible.add(result)
+            if result.id == 169:
+              print persona_a, persona_b, persona_c
     if len(possible.difference(old_possible)) == 0:
       done = True
     else:
