@@ -4,4 +4,4 @@ Would not take much to make some sort of GUI to make it more userfriendly, but t
 
 Thanks to Florian for his blog posts about the save game format that saved a bit of time such as: http://mehm.net/blog/?p=295 
 
-Data and fusion stuff mostly derived from arantius/persona-3-fes-fusion-calculator
+Data and fusion stuff mostly derived from arantius/persona-3-fes-fusion-calculator@509163270f68db8a9908ed094b66a8e4c2bbc820
