@@ -10,7 +10,7 @@ per_record_exp_offset = 0x08
 per_record_ability_offset = 0x0C
 per_record_stats_offset = 0x1C
 
-per_95_exp = 0x0015A593
+per_95_exp = 0x0015A593 #actually does not seem that all persona use the same curve
 
 per_comp_offset = 0x26c4
 
@@ -49,9 +49,6 @@ def edit_skill(persona_id, slot, skill_num):
   buf[record + per_record_ability_offset + slot*2 + 1] = skill_num // 256
 
 def save():
-  if 1:#change < 0:
-    print "oh shit, change is negative and i don't know if python does negative mod right so hope", buf[checksum_offset], change, change % 256, buf[checksum_offset] + change, (buf[checksum_offset] + change) % 256
-
   buf[checksum_offset] = (buf[checksum_offset] + change) % 256
 
   f.seek(0)
@@ -60,92 +57,4 @@ def save():
   
 f = open(sys.argv[1], 'r+b')
 buf = map(ord, f.read())
-#abilities = False
-abilities = True
-ffff="""
-for i in range(170): #range(per_num):
-  #set before to off
-  record = per_comp_offset + per_record_size * i
-  change += 0 - buf[record + per_record_have_offset]
-  #change += 0 - buf[record + per_record_level_offset]
-  buf[record + per_record_have_offset] = 0
-  #buf[record + per_record_level_offset] = 0
-"""
-"""
-for i in range(min(170 - per_num - 1 ,99)):
-  record = per_comp_offset + per_record_size * (per_num + i)
-  change += 0x01 - buf[record + per_record_have_offset]
-  buf[record + per_record_have_offset] = 1
-  change += (i+1) - buf[record + per_record_level_offset]
-  buf[record + per_record_level_offset] = i+1
-  change += (per_num + i+1) - buf[record + per_record_id_offset]
-  buf[record + per_record_id_offset] = per_num + i+1
-
-  if abilities:
-    for j in range(8):
-      change += skill_num % 256 - buf[record + per_record_ability_offset + j*2]
-      change += skill_num // 256 - buf[record + per_record_ability_offset + j*2 + 1]
-      buf[record + per_record_ability_offset + j*2] = skill_num % 256
-      buf[record + per_record_ability_offset + j*2 + 1] = skill_num // 256
-      skill_num += 1
-"""
-#edit growths
-"""
-
-for i in range(170):
-  record = per_comp_offset + per_record_size * (per_num + i)
-  for j in range(8):
-    if buf[record + per_record_ability_offset + j*2 + 1] == 0x2 and (buf[record + per_record_ability_offset + j*2] == 0x2A or buf[record + per_record_ability_offset + j*2] == 0x29):
-      skill_num = 0x22B
-      change += skill_num % 256 - buf[record + per_record_ability_offset + j*2]
-      change += skill_num // 256 - buf[record + per_record_ability_offset + j*2 + 1]
-      buf[record + per_record_ability_offset + j*2] = skill_num % 256
-      buf[record + per_record_ability_offset + j*2 + 1] = skill_num // 256
-"""
-sldfj="""
-for i in range(per_num+99,170):
-  #set after to off
-  record = per_comp_offset + per_record_size * i
-  change += 0 - buf[record + per_record_have_offset]
-  change += 0 - buf[record + per_record_level_offset]
-  buf[record + per_record_have_offset] = 0
-  buf[record + per_record_level_offset] = 0
-"""
-"""
-if 1:#change < 0:
-  print "oh shit, change is negative and i don't know if python does negative mod right so hope", buf[checksum_offset], change, change % 256, buf[checksum_offset] + change, (buf[checksum_offset] + change) % 256
-
-buf[checksum_offset] = (buf[checksum_offset] + change) % 256
-
-f.seek(0)
-f.write(''.join(map(chr,buf)))
-f.close()
-"""
-
-"""
-edit_skill(99+37, 3, 66*8+6)
-edit_skill(99+37, 4, 59*8+7)
-edit_skill(99+37, 5, 24*8+4)
-edit_skill(99+37, 6, 25*8+4)
-edit_skill(99+37, 7, 71*8+2)
-edit_skill(99+10, 7, 74*8+6)
-edit_skill(99+10, 5, 74*8+0)
-edit_skill(26, 0, 74*8+6)
-edit_skill(56, 7, 74*8+6)
-edit_skill(99+2, 6, 74*8+6)
-edit_skill(99+2, 3, 74*8+1)
-edit_skill(25, 2, 74*8+6)
-edit_skill(99+20, 0, 73*8+5)
-edit_skill(99+20, 1, 73*8+6)
-edit_skill(99+20, 2, 73*8+7)
-edit_skill(99+20, 3, 27*8+1)
-edit_skill(99+20, 4, 27*8+3)
-edit_skill(99+20, 5, 26*8+7)
-edit_skill(99+20, 6, 0)
-edit_skill(99+20, 7, 0)
-edit_skill(99+28, 1, 25*8+7)
-edit_skill(99+28, 3, 26*8+1)
-edit_skill(99+28, 5, 26*8+3)
-edit_skill(99+28, 6, 9*8+1)
-"""
 
