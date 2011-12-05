@@ -71,12 +71,14 @@ def fusion2(a, b):
       break
   if not found:
     return None
-
+  
   if a.arcana == b.arcana:
     i -= 1
   if persona == a  or persona == b:
     i -= 1
-  #can this go negative?
+  #can this go negative?, yes it can -> Slime, Orpheus makes i < 0
+  if i < 0:
+    return None
   return arcana_list[i]
 
 def fusion3(a, b, c, this_order = False):
