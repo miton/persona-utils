@@ -1,3 +1,5 @@
+from persona import persona_by_arcana
+
 arcana_ranks = {
   'Hierophant': 6, 'Devil': 16, 'Justice': 9, 'Sun': 20, 'Moon': 19, 'Lovers': 7, 'Strength': 12, 'Hanged Man': 13, 'Hermit': 10, 'Fool': 1, 'Star': 18, 'Magician': 2, 'Judgment': 21, 'Aeon': 22, 'Fortune': 11, 'Death': 14, 'Priestess': 3, 'Tower': 17, 'Emperor': 5, 'Chariot': 8, 'Temperance': 15, 'Empress': 4
 }
@@ -51,14 +53,24 @@ fusion3_arcana = {
   'Temperance' : {'Devil': 'Moon', 'Star': 'Hermit', 'Sun': 'Judgment', 'Moon': 'Empress', 'Temperance': 'Temperance', 'Tower': 'Devil', 'Judgment': 'Justice', 'Aeon': 'Star'},
   'Empress' : {'Hierophant': 'Priestess', 'Devil': 'Magician', 'Lovers': 'Fortune', 'Fortune': 'Strength', 'Star': 'Temperance', 'Justice': 'Emperor', 'Sun': 'Lovers', 'Moon': 'Lovers', 'Empress': 'Empress', 'Chariot': 'Devil', 'Death': 'Devil', 'Aeon': 'Moon', 'Strength': 'Chariot', 'Temperance': 'Lovers', 'Tower': 'Chariot', 'Emperor': 'Fool', 'Judgment': 'Devil', 'Hanged Man': 'Chariot', 'Hermit': 'Lovers'},
 }
-def fusion_2(a, b):
+
+from math import floor
+
+def fusion2(a, b):
   result_level = 1 + floor((a.level + b.level) / 2.0)
-  result_arcana = fusion2_arcana[a.arcana][b.arcana]
+  try:
+    result_arcana = fusion2_arcana[a.arcana][b.arcana]
+  except KeyError:
+    return None
   
   arcana_list = persona_by_arcana[result_arcana]
+  found = False
   for i,persona in enumerate(arcana_list):
     if persona.base_level >= result_level and not persona.special:
+      found = True
       break
+  if not found:
+    return None
 
   if a.arcana == b.arcana:
     i -= 1
@@ -67,13 +79,17 @@ def fusion_2(a, b):
   #can this go negative?
   return arcana_list[i]
 
-def fusion_3(a, b, c, this_order = False):
+def fusion3(a, b, c, this_order = False):
   if not this_order:
     a, b, c = sorted([a,b,c], key=lambda i: i.level * 100 + arcana_order[i.arcana])
-  intermediate_arcana = fusion2_arcana[a.arcana][b.arcana]
+  try:
+    intermediate_arcana = fusion2_arcana[a.arcana][b.arcana]
   
-  result_level = 5 + floor((a.level + b.level + c.level) / 3.0)
-  result_arcana = fusion3_arcana[intermediate_arcana][c.arcana]
+    result_level = 5 + floor((a.level + b.level + c.level) / 3.0)
+ 
+    result_arcana = fusion3_arcana[intermediate_arcana][c.arcana]
+  except KeyError:
+    return None
 
   arcana_list = persona_by_arcana[result_arcana]
   found = False

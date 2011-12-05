@@ -18,6 +18,18 @@ class Persona(object):
     self.special = special_
     self.restricted = restricted_
     self.inherited_skills = []
+  
+  def __str__(self):
+    return self.name
+  
+  def __repr__(self):
+    return str(self)
+  
+  def __eq__(self, b):
+    #with fusions you need equality checks and the objects might not be the same
+    #not sure what other times you might compare them
+    return self.id == b.id
+
 
 personas = [Persona(149, 'Yaksini',50,'Empress','slash',[]),
 Persona(133, 'Barong',52,'Emperor','slash',[]),
