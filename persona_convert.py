@@ -201,11 +201,11 @@ with open('pdb.txt', 'w') as f:
       persona = by_name[name]
       f.write("Persona(%d, '%s',%d,'%s','%s',[]" % (persona['id'], name, int(persona['level']), persona['arcana'], type))
       if 'special' in persona:
-        f.write(", special=True")
+        f.write(", special_=True")
       if 'max' in persona:
-        f.write(", restrict='max'")
+        f.write(", restricted_='max'")
       if 'item' in persona:
-        f.write(", restrict='item'")
-      f.write(")\n")
+        f.write(", restricted_='item'")
+      f.write("),\n")
 
   
