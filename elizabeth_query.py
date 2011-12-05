@@ -4,9 +4,7 @@ from skill import *
 
 #terribly inefficient but only needs to be run once so...
 #actually this is not quite right because triangle fusion uses current levels(?) and it doesn't try special fusions either
-#how did I end up with Orpheus Telos in the results though?
-#guess is fusion2 missing the found check
-#turned out to be fusion2 going negative i
+
 for base, skill_type in [('Surt', 'fire'), ('Skadi', 'ice'), ('Odin', 'elec'), ('Norn', 'wind')]:
   possible = set([persona_by_name[base]])
   old_possible = possible.copy()
